@@ -210,12 +210,13 @@ def get(req_handler, routes):
             if None != re.search(handler.__route__, req_handler.path):
                 req_handler.send_response(200)
                 req_handler.send_header('Content-Type', 'application/json')
-                req_handler.send_header('Access-Control-Allow-Origin', '*')
+                req_handler.send_header('Access-Control-Allow-Origin', '*')  # Allow requests from any origin
                 req_handler.end_headers()
                 params = read_params(req_handler.path)
                 data = json.dumps(handler(routes, params)) + '\n'
                 req_handler.wfile.write(bytes(data, encoding='utf-8'))
                 return
+
 
 
 def run(routes, host='0.0.0.0', port=8080):
